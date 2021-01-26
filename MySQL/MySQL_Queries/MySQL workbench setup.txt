@@ -1,0 +1,9 @@
+USE twitter;
+
+SELECT * FROM tweets;
+
+INSERT INTO tweets(tweet, user_id) VALUES ('hello my name is what', 3);
+
+UPDATE tweets SET tweet = 'hello my name is Slim Shady' WHERE id = 13;
+
+DELETE FROM tweets WHERE id = 13;

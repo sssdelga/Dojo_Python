@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    {% load static %}
+    <link rel='stylesheet' href="{% static 'style.css' %}">
+</head>
+<body>
+    {% comment %} and {% endcomment %}
+    <h1>Submission Summary</h1>
+    <h3>
+        Name: {{request.session.ur_name}}
+    </h3>
+    <h3>
+        Dojo Location: {{request.session.dojo_location}}
+    </h3>
+    <h3>
+        Favorite Language: {{request.session.fav_lang}}
+    </h3>
+    <p>
+        Comments: {{request.session.comments}}
+    </p>
+</body>
+</html>

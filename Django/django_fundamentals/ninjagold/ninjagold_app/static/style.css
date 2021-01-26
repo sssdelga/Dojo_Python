@@ -1,0 +1,21 @@
+
+
+body{
+    width: 1000px;
+}
+.income{
+    text-align: center;
+    display: inline-block;
+    padding: 20px;
+    width: 200px;
+    border: 1px solid black;
+    color: green;
+}
+
+a{
+    margin-bottom: 20px;
+}
+
+p{
+    display: block;
+}
