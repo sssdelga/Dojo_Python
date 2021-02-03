@@ -1,5 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect
 
+import random
+
 def index(request):
     if 'gold_total' not in request.session:
         request.session['gold_total']=0
@@ -13,13 +15,9 @@ def index(request):
 
 def process(request, place):
     if place == 'Farm':
-        request.session['click_counter']+=1
-        if request.session['click_counter']%2 == True:
-            request.session['gold_total']+=20
-            request.session['activities'].append('Earned 20 golds from Farm')
-        else:
-            request.session['gold_total'] += 10
-            request.session['activities'].append('Earned 10 golds from Farm')
+        x = random.randint(10, 20)
+        request.session['gold_total']+=x
+        request.session['activities'].append(f'Earned {x} golds from Farm')
     if place == 'Cave':
         request.session['click_counter']+=1
         if request.session['click_counter']%2 == True:
@@ -37,12 +35,12 @@ def process(request, place):
             request.session['gold_total'] += 5
             request.session['activities'].append('Earned 5 golds from House')
     if place == 'Casino':
-        request.session['click_counter']+=1
-        if request.session['click_counter']%2 == True:
-            request.session['gold_total']+=50
-            request.session['activities'].append('Earned 50 golds from Casino')
+        w = random.randint(-50,50)
+        request.session['gold_total']+=w
+        if w < 0:
+            request.session['activities'].append((f'Oh no! Lost {abs(w)} golds from Casino','red'))
+        
         else:
-            request.session['gold_total'] -= 50
-            request.session['activities'].append('Oh no! Lost 50 golds from Casino')
+            request.session['activities'].append((f'Earned {w} from Casino','green'))
     return redirect('/')
 

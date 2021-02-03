@@ -1,0 +1,16 @@
+1. python manage.py shell
+2. from users_app.models import *
+3. User.objects.create(first_name = "Samantha", last_name = "Delgado", email_address = "s.delgado505@gmail.com", age = 28)
+   User.objects.create(first_name = "Doug", last_name = "Smith", email_address = "doug@doug.com", age =30)
+   User.objects.create(first_name = "Spongebob", last_name = "Squarepants", email_address = "imready@bikinibottom.com", age = 30)
+4. User.objects.all()
+   User.objects.all().values()
+5. User.objects.last()
+6. User.objects.first()
+7. c = User.objects.get(id=3)
+   c.last_name = "Pancakes"
+   c.save()
+8. c = User.objects.get(id=3)       <--Oops wrong id
+   c.delete()
+9. User.objects.all().order_by("first_name")
+   User.objects.all().order_by("-first_name")

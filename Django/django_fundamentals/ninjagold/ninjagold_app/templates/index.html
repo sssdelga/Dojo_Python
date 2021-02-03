@@ -29,7 +29,11 @@
             <h3>(earns/takes 0-50 golds)</h3>
             <a href='/process_money/Casino'>Find Gold!</a>
         </div>
-    <h4>Activities: </h4>
-    <p>{{request.session.activities}}</p>
+    <div id='activity_scroll'>
+        <h4>Activities: </h4>
+        {% for activity in request.session.activities %}
+        <p class={{activity.1}}>{{activity.0}}</p>
+        {% endfor %}
+    </div>
 </body>
 </html>

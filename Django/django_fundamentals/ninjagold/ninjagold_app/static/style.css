@@ -18,4 +18,13 @@ a{
 
 p{
     display: block;
+
+}
+
+.red{
+    color: red;
+}
+
+.green{
+    color: green;
 }
