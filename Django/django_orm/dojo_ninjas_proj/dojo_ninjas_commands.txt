@@ -1,0 +1,36 @@
+1. from dojo_ninjas_app.model import Dojo, Ninja
+2. Dojo.objects.create(name = "Windy Dojo", city = "Chicago", state = "IL")
+   Dojo.objects.create(name = "Virtual Dojo", city = "Online", state = "NA")
+   Dojo.objects.create(name = "Cowboy Dojo", city = "Dallas", state = "TX")
+3. Dojo.objects.get(id=1).delete()
+   Dojo.objects.get(id=2).delete()
+   Dojo.objects.get(id=3).delete()
+4. Dojo.objects.create(name = "Sunny Dojo", city = "Los Angeles", state = "CA")
+   Dojo.objects.create(name = "Rainy Dojo", city = "Bellevue", state = "WA")
+   Dojo.objects.create(name = "Anywhere Dojo", city = "ONL", state = "OL")
+5. LA_dojo = Dojo.objects.get(id=4)
+   Ninja.objects.create(first_name = "Kim", last_name = "Kardashian", dojo = LA_dojo)
+   Ninja.objects.create(first_name = "Johnny", last_name = "Depp", dojo = LA_dojo)
+   Ninja.objects.create(first_name = "Halle", last_name = "Berry", dojo = LA_dojo)
+6. wa_dojo = Dojo.objects.get(id=5)
+   Ninja.objects.create(first_name = "Bill", last_name = "Gates", dojo = wa_dojo)
+   Ninja.objects.create(first_name = "Jeff", last_name = "Bezos", dojo = wa_dojo)
+   Ninja.objects.create(first_name = "Bill", last_name = "Nye", dojo = wa_dojo)
+7. onl_dojo = Dojo.objects.get(id=6)
+   Ninja.objects.create(first_name = "Samantha", last_name = "Delgado", dojo = onl_dojo)
+   Ninja.objects.create(first_name = "Bob", last_name = "The Builder", dojo = onl_dojo)
+   Ninja.objects.create(first_name = "Spongebob", last_name = "Squarepants", dojo = onl_dojo)
+8. Ninja.objects.filter(dojo = LA_dojo)
+9. Ninja.objects.filter(dojo = wa_dojo).values()
+10. Ninja.objects.filter(dojo = onl_dojo).values()
+11. edit made in models.py: desc = models.TextField()
+12. exit()
+    python manage.py makemigrations
+    1
+    "empty"
+    python manage.py migrate
+13. python manage.py shell
+    from dojo_ninjas_app.models import Dojo, Ninja
+    Dojo.objects.create(name = "Smoky Dojo", city = "Arlington", state = "VA", desc = "a description about this dojo")
+
+
