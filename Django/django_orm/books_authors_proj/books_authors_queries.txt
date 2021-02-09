@@ -1,0 +1,42 @@
+1. Book.objects.create(title = 'C Sharp', desc = 'C Sharp')
+   Book.objects.create(title = 'Java', desc = 'Java')
+   Book.objects.create(title = 'Python', desc = 'Python')
+   Book.objects.create(title = 'PHP', desc = 'PHP')
+   Book.objects.create(title = 'Ruby', desc = 'Ruby')
+2. Author.objects.create(first_name = 'Jane', last_name = 'Austen')
+   Author.objects.create(first_name = 'Emily', last_name = 'Dickinson')
+   Author.objects.create(first_name = 'Fyodor', last_name = 'Dostoevsky')
+   Author.objects.create(first_name = 'William', last_name = 'Shakespeare')
+   Author.objects.create(first_name = 'Lau', last_name = 'Tzu')
+3. Added in models.py:
+   notes = models.TextField()
+4. python manage.py makemigrations
+   1
+   'empty'
+   python manage.py migrate
+5. c = Book.objects.get(id=1)
+   c.title = 'C#'
+   c.save()
+6. bill = Author.objects.get(id=4)
+   bill.first_name = 'Bill'
+   bill.save()
+7. jane = Author.objects.get(id=1)
+   j = Book.objects.get(id=2)
+   jane.books.add(j)
+   jane.books.add(c)
+8. emily = Author.objects.get(id=2)
+   p = Book.objects.get(id=3)
+   php = Book.objects.get(id=4)
+   r = Book.objects.get(id=5)
+   emily.books.add(c,j,p)
+9. fy = Author.objects.get(id=3)
+   fy.books.add(c,j,p,php)
+10. bill.books.add(c,j,p,php,r)
+11. p.authors.all()
+12. p.authors.first().delete()
+13. lau = Author.objects.get(id=5)
+    j.authors.add(lau)
+14. fy.books.all()
+15. r.authors.all()
+
+   

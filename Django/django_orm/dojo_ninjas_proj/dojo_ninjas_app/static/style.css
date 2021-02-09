@@ -1,0 +1,31 @@
+*{
+    margin: 0px;
+    padding: 0px;
+
+}
+
+#add_options {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+    border-bottom: 1px solid black;
+}
+
+    .add {
+        padding: 20px;
+        display: block;
+    }
+
+        .add ul{
+            list-style-type: none;
+        }
+
+        .add ul li{
+            text-align: right;
+            padding-bottom: 10px;
+            width: 250px;
+        }
+
+#dojos_and_ninjas{
+    text-align: center;
+}
