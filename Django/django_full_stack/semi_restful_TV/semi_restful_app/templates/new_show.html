@@ -9,6 +9,17 @@
 <body>
     <h5><a href='/shows'>Go Back</a></h5>
     <h1>Add a New Show</h1>
+    <h4>
+        {% if messages %}
+        <ul class='messages'>
+            {% for message in messages %}
+            <li {% if message.tags %} class='{{message.tags}}' {% endif %}>
+                {{message}}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </h4>
     <form action='/shows/new' method="POST">
         {% csrf_token %}
         <ul>
