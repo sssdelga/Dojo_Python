@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from .models import Show
 from django.contrib import messages
 
@@ -35,33 +35,35 @@ def view_show(request, show_id):
 
 def edit_show(request, show_id):
     if request.method=='GET':
+        show = Show.objects.get(id=show_id)
         context = {
-            'show': Show.objects.get(id=show_id)
+            'show': show
         }
         return render(request, 'edit_show.html', context)
+    
+def update_show(request,show_id):
+    errors = Show.objects.basic_validator(request.POST)
+    if errors:
+        for key,value in errors.items():
+            messages.error(request,value)
+        return redirect(f'/shows/{show_id}/edit')
     else:
-        errors = Show.objects.basic_validator(request.POST)
-        if len(errors)>0:
-            for key,value in errors.items():
-                messages.error(request,value)
-            return redirect('/shows/<int:show_id>/edit')
-        else:
-            edit = Show.objects.get(id=show_id)
-            print(edit)
-            if edit.title == True:
-                edit.title = request.POST['title']
+        edit = Show.objects.get(id=show_id)
+        print(edit)
+        if edit.title == True:
+            edit.title = request.POST['title']
 
-            if edit.network == True:
-                edit.network = request.POST['network']
+        if edit.network == True:
+            edit.network = request.POST['network']
 
-            if edit.release_date == True:
-                edit.release_date = request.POST['release_date']
+        if edit.release_date == True:
+            edit.release_date = request.POST['release_date']
 
-            if edit.description == True:
-                edit.description = request.POST['description']
-            
-            messages.success(request, 'Show successfully updated')
-            return redirect('/shows/<int:show_id>')
+        if edit.description == True:
+            edit.description = request.POST['description']
+        
+        messages.success(request, 'Show successfully updated')
+        return redirect(f'/shows/{show_id}')
 
 def delete_show(request, show_id):
     show_to_delete = Show.objects.get(id=show_id)

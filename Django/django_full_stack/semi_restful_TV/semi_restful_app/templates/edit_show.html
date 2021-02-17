@@ -12,24 +12,22 @@
         {% if messages %}
         <ul class='messages'>
             {% for message in messages %}
-            <li {% if message.tags %} class='{{message.tags}}' {% endif %}>
-                {{message}}
-            </li>
+            <li>{{message}}</li>
             {% endfor %}
         </ul>
         {% endif %}
     </h4>
-    <form action="/shows/{{show.id}}" method="POST">
+    <form action="/shows/{{show.id}}/update" method="POST">
         {% csrf_token %}
         <ul>
             <li><label for='title'>Title</label>
-            <input type='text' name='title' id='title'></li>
+            <input type='text' name='title' id='title' value='{{show.title}}'></li>
             <li><label for='network'>Network</label>
-            <input type='text' name='network' id='network'></li>
+            <input type='text' name='network' id='network' value='{{show.network}}'></li>
             <li><label for='release_date'>Release Date</label>
-            <input type='date' name='release_date' id='release_date'></li>
+            <input type='date' name='release_date' id='release_date' value='{{show.release_date|date:"Y-m-d"}}'></li>
             <li><label for='description'>Description</label>
-            <input type='text' name='description' id='description'></li>
+            <input type='text' name='description' id='description' value='{{show.description}}'></li>
             <li><input type='submit' value='Update'></li>
         </ul>
     </form>

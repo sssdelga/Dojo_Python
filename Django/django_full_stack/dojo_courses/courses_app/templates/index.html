@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dojo Courses</title>
+</head>
+<body>
+    <div id='add_course'>
+        <h1>Add a new course</h1>
+        {% if messages %}
+        <ul class='messages'>
+            {% for message in messages %}
+            <li>{{message}}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <form action='/courses/create' method="POST">
+        {% csrf_token %}
+        <label for='name'>Name:</label>
+        <input type='text' id='name' name='name'>
+        <label for='desc'>Description:</label>
+        <input type='text' id='desc' name='desc'>
+        <input type='submit' value='Add'>
+        </form>
+    </div>
+    <div id='course_list'>
+        <h1>Courses</h1>
+        <table>
+            <thead>
+                <th>Course Name</th>
+                <th>Description</th>
+                <th>Date Added</th>
+                <th>Actions</th>
+            </thead>
+            <tbody>
+                {% for course in courses %}
+                <tr>
+                    <td>{{course.name}}</td>
+                    <td>{{course.desc}}</td>
+                    <td>{{course.created_at}}</td>
+                    <td><a href='courses/destroy/{{course.id}}'>Remove</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
