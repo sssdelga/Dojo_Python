@@ -5,7 +5,8 @@ from login_app.models import User
 #wall/home
 #wall/all
 #wall/create
-#wall/comment/create
+#wall/comment/mess_id/create
+#wall/message/mess_id/destroy
 
 def wall(request):
     if 'user_id' not in request.session:
@@ -40,4 +41,9 @@ def comment_create(request, mess_id):
         message = message_id,
         comment_content = request.POST['comment_content']
     )
+    return redirect('/wall/all')
+
+def message_delete(request, mess_id):
+    message_id = Message.objects.get(id=mess_id)
+    message_id.delete()
     return redirect('/wall/all')

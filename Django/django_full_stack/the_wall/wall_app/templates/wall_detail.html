@@ -25,15 +25,23 @@
         {% for message in wall_messages %}
         <h4>{{message.author.first_name}} - {{message.created_at|date:"Y-M-d"}}</h4>
         <p>{{message.message_content}}</p>
-            <ul>
+            {% if message.author == user %}
+            <a href='/wall/message/{{message.id}}/destroy'>Delete message</a>
+            {% endif %}
+            <div class='comment_section'>
+                <h5>Comments</h5>
+                {% for comment in message.message_comments.all %}
+                <h5>{{comment.author.first_name}}</h5>
+                <p>{{comment.comment_content}}</p>
+                {% endfor %}
                 
-            </ul>
-            <form action='/wall/comment/{{message.id}}/create' method='POST'>
-                {% csrf_token %}
-                <label for='comment'>Add a comment</label>
-                <input type='text' name='comment_content' id='comment'>
-                <input type='submit' value='Post'>
-            </form>
+                <form action='/wall/comment/{{message.id}}/create' method='POST'>
+                    {% csrf_token %}
+                    <label for='comment'>Add a comment</label>
+                    <input type='text' name='comment_content' id='comment'>
+                    <input type='submit' value='Post'>
+                </form>
+            </div>
         {% endfor %}
     </div>
 </body>
