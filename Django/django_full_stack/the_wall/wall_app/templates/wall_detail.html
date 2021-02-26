@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{user.first_name}}'s Wall</title>
+</head>
+<body>
+    <div id='header'>
+        <h1>Coding Dojo Wall</h1>
+        <h3>Welcome {{user.first_name}}</h3>
+        <h4><a href='/logout'>Log Out</a></h4>
+    </div>
+    <div id='post'>
+        <h2>Post a message</h2>
+        <form action='/wall/create' method='POST'>
+        {% csrf_token %}
+        <input type='text' name='message_content' id='message'>
+        <input type='submit' value='Post'>
+        </form>
+    </div>
+    <div id='body'>
+
+        {% for message in wall_messages %}
+        <h4>{{message.author.first_name}} - {{message.created_at|date:"Y-M-d"}}</h4>
+        <p>{{message.message_content}}</p>
+            <ul>
+                
+            </ul>
+            <form action='/wall/comment/{{message.id}}/create' method='POST'>
+                {% csrf_token %}
+                <label for='comment'>Add a comment</label>
+                <input type='text' name='comment_content' id='comment'>
+                <input type='submit' value='Post'>
+            </form>
+        {% endfor %}
+    </div>
+</body>
+</html>
