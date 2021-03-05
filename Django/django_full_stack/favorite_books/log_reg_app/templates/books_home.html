@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{user.first_name}}'s Home Page</title>
+</head>
+<body>
+    <div id='header'>
+        <h1>Welcome, {{user.first_name}}!</h1>
+        <h4><a href='/user/logout'>Log Out</a></h4>
+    </div>
+    <div id='add_book_form'>
+        {% if messages %}
+            <ul class='messages'>
+                {% for message in messages %}
+                    <li>{{message}}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <h2>Add a Favorite Book</h2>
+        <form action='/books/create' method='POST'>
+            {% csrf_token %}
+            <label for='title'>Title</label>
+            <input type='text' id='title' name='title'>
+            <label for='desc'>Description</label>
+            <input type='text' id='desc' name='desc'>
+            <input type='submit' value='Add'>
+        </form>
+    </div>
+    <div id='book_list'>
+        <h2>All Books</h2>
+        {% for book in books %}
+            <h3><a href='/books/{{book.id}}'>{{book.title}}</a></h3>
+            <h5>(added by {{book.added_by.first_name}}</h5>
+            {% if user in book.favorites %}
+                <h6>this is one of your favorites</h6>
+            {% else %}
+                <a href='/books/{{book.id}}/favorite'>Add to Favorites</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+</body>
+</html>

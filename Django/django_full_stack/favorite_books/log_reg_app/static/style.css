@@ -1,0 +1,26 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
+
+h1{
+    padding: 20px;
+}
+
+#login_and_reg{
+    padding: 20px;
+}
+
+.form_block{
+    display: inline-block;
+    padding: 10px;
+    vertical-align: top;
+    border: 1px solid black;
+    margin-right: 50px;
+}
+
+.form_block input{
+    display: block;
+    margin-bottom: 10px;
+}
+

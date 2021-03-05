@@ -25,7 +25,6 @@ class UserManager(models.Manager):
             errors['password']='Invalid password entered'
         return errors
 
-
 class User(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
