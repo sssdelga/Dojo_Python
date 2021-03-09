@@ -54,8 +54,6 @@ def login_user(request):
 # After user logged in
 def home(request):
     active_user = User.objects.get(id=request.session['user_id'])
-    print('*******************************')
-    print(active_user)
     context = {
         'user': active_user,
         'books': Book.objects.all()
@@ -69,21 +67,29 @@ def logout(request):
 
 #/books/create
 def create_book(request):
-    active_user = request.session['user_id']
+    active_user = User.objects.get(id=request.session['user_id'])
     errors = Book.objects.book_validate(request.POST)
     if len(errors)>0:
         for k,v in errors.items():
             messages.error(request, v)
     else:
-        Book.object.create(
+        new_book = Book.object.create(
             title = request.POST['title'],
             desc = request.POST['desc'],
             added_by = active_user,
-            favorites = active_user
         )
+        new_book.favorites.add(active_user)
     return redirect('/books')
 
 #/books/<int:id>
+def view_book(request, book_id):
+    active_user = User.objects.get(id=request.session['user_id'])
+    active_book = Book.objects.get(id=book_id)
+    context = {
+        'user': active_user,
+        'book': active_book
+    }
+    return render(request, 'book.html', context)
 
 #/books/<int:id>/edit
 

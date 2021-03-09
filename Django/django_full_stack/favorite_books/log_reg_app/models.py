@@ -49,6 +49,8 @@ class BookManager(models.Manager):
 class Book(models.Model):
     title = models.CharField(max_length=255)
     desc = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     added_by = models.ForeignKey(User, related_name='added_books', on_delete=models.CASCADE)
     favorites = models.ManyToManyField(User, related_name='fav_books')
-    objects = BookManager
+    objects = BookManager()
