@@ -73,7 +73,7 @@ def create_book(request):
         for k,v in errors.items():
             messages.error(request, v)
     else:
-        new_book = Book.object.create(
+        new_book = Book.objects.create(
             title = request.POST['title'],
             desc = request.POST['desc'],
             added_by = active_user,
@@ -85,6 +85,7 @@ def create_book(request):
 def view_book(request, book_id):
     active_user = User.objects.get(id=request.session['user_id'])
     active_book = Book.objects.get(id=book_id)
+    print(active_book.added_by.__dict__)
     context = {
         'user': active_user,
         'book': active_book
@@ -92,7 +93,30 @@ def view_book(request, book_id):
     return render(request, 'book.html', context)
 
 #/books/<int:id>/edit
+def edit_book(request, book_id):
+    active_book = Book.objects.get(id=book_id)
+    active_book.title = request.POST['title']
+    active_book.desc = request.POST['desc']
+    active_book.save()
+    return redirect(f'/books/{book_id}')
 
 #/books/<int:id>/destroy
+def delete_book(request, book_id):
+    active_book = Book.objects.get(id=book_id)
+    active_book.delete()
+    return redirect('/books')
 
 #/books/<int:id>/favorite
+def fav_book(request, book_id):
+    active_user = User.objects.get(id=request.session['user_id'])
+    active_book = Book.objects.get(id=book_id)
+    active_book.favorites.add(active_user)
+    return redirect('/books')
+
+#/books/<int:id>/unfav
+def unfav_book(request, book_id):
+    active_user = User.objects.get(id=request.session['user_id'])
+    active_book = Book.objects.get(id=book_id)
+    active_book.favorites.remove(active_user)
+    print(active_book.favorites.all)
+    return redirect(f'/books/{book_id}')

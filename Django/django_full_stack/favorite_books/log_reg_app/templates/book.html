@@ -13,26 +13,32 @@
     </div>
     <div id='book_left'>
         <form action='/books/{{book.id}}/edit' method="POST">
+            {% csrf_token %}
             <h1><input type='text' id='title' name='title' value='{{book.title}}'></h1>
             <h4>Added by: {{book.added_by.first_name}} {{book.added_by.last_name}}</h4>
             <h4>Added on: {{book.created_at}}</h4>
             <h4>Last updated on: {{book.updated_at}}</h4>
             <h4><label for='desc'>Description:</label>
             <input type='text' id='desc' name='desc' value='{{book.desc}}'></h4>
+            {% if user.id == book.added_by_id %}
             <input type='submit' value='Update'>
+            {% endif %}
         </form>
-        <form action='/books/{{book.id}}.destroy' method='POST'>
-            <input type= 'submit' value='Delete' id='delete_book'>
-        </form>
+        {% if user.id == book.added_by_id %}
+            <form action='/books/{{book.id}}/destroy' method='POST'>
+                {% csrf_token %}
+                <input type= 'submit' value='Delete' id='delete_book'>
+            </form>
+        {% endif %}
     </div>
     <div id='book_right'>
         <h2>Users Who Like This Book:</h2>
         <ul>
-            {% for liker in book.favorites %}
+            {% for liker in book.favorites.all %}
                 <li>
                     {{liker.first_name}} {{liker.last_name}}
-                    {% if liker is user %}
-                        <a href='/books/{{book.id}}/unfavorite'>Un-Favorite</a>
+                    {% if user.id is liker.id %}
+                        <a href='/books/{{book.id}}/unfav'>Un-Favorite</a>
                     {% endif %}
                 </li>
             {% endfor %}

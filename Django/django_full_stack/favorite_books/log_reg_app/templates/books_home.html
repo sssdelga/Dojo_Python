@@ -33,8 +33,8 @@
         <h2>All Books</h2>
         {% for book in books %}
             <h3><a href='/books/{{book.id}}'>{{book.title}}</a></h3>
-            <h5>(added by {{book.added_by.first_name}}</h5>
-            {% if user in book.favorites %}
+            <h5>(added by {{book.added_by.first_name}})</h5>
+            {% if user in book.favorites.all %}
                 <h6>this is one of your favorites</h6>
             {% else %}
                 <a href='/books/{{book.id}}/favorite'>Add to Favorites</a>
